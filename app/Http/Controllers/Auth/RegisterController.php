@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\AccountConfirmationNotification;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use http\Env\Request;
+
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::DASH;
 
     /**
      * Create a new controller instance.
@@ -73,4 +75,20 @@ class RegisterController extends Controller
             'password' => password_hash($request->password,PASSWORD_DEFAULT),
         ]);
     }
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(\Illuminate\Http\Request $request, $user)
+    {
+        $user->notify(new AccountConfirmationNotification($user));
+        Auth::logout();
+        return redirect()->route('login');
+    }
+
+
+
 }

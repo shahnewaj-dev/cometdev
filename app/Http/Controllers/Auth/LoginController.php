@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::DASH;
 
     /**
      * Create a new controller instance.
@@ -36,5 +36,27 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        $login_data = request()->input('login_data');
+        $cell = substr($login_data,0,4);
+
+        if (filter_var($login_data,FILTER_VALIDATE_EMAIL)){
+            $type = 'email';
+        }elseif($cell=='8801'){
+            $type='phone_number';
+        }else{
+            $type='username';
+        }
+
+        request()->merge([$type => $login_data]);
+        return $type;
+
     }
 }
