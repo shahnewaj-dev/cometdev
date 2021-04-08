@@ -58,12 +58,33 @@ class PostController extends Controller
                 array_push($gallery_img,$unique_gal_name);
             }
         }
+//        $youtube = substr($request->video,12,7);
+//        $vimeo = substr($request->video,8,5);
+//        $video='';
+//        if ($youtube){
+//            $video = str_replace('watch?v=','embed/',$request->video);
+//        }else if($vimeo) {
+//            $video = str_replace('https://vimeo.com/','https://player.vimeo.com/video/',$request->video);
+//        }
+
+//            $str = substr($request->video);
+        $str = substr($request -> video , 0 , 17);
+        if($str == "https://vimeo.com"){
+
+            $video = str_replace('https://vimeo.com/' , 'https://player.vimeo.com/video/',$request -> video);
+
+
+        }else if($str == "https://www.youtu"){
+            $video = str_replace('watch?v=' , 'embed/',$request -> video);
+        }
+
+
 
          $post_feature =[
             'post_type' => $request->post_format,
             'featured_img' => $unique_img_name,
             'gall_image' => $gallery_img,
-            'post_video' => $request->video,
+            'post_video' => $video,
             'post_audio' => $request->audio,
         ];
 

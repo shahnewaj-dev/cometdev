@@ -34,8 +34,8 @@
                         @include('validate')
                         <a  class="btn btn-sm btn-primary" href="{{ route('admin.create') }}">Add new post</a>
                         <br><br>
-                        <a class="badge badge-info" href="{{ route('admin.post') }}">Published{{ $published }}</a>
-                        <a class="badge badge-danger" href="{{ route('post.trash') }}">Trash {{ $trash }}</a>
+                        <a class="badge badge-info" href="{{ route('admin.post') }}">Published{{ ($published==0) ? '' : $published }}</a>
+                        <a class="badge badge-danger" href="{{ route('post.trash') }}">Trash {{ ($trash==0) ? '' : $trash }}</a>
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Post Rows</h4>
@@ -48,6 +48,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Post title</th>
+                                            <th>Author</th>
                                             <th>Post type</th>
                                             <th>Featured</th>
                                             <th>image</th>
@@ -62,6 +63,7 @@
                                         <tr>
                                             <td>{{ $loop->index+1 }}</td>
                                             <td>{{ $d->name }}</td>
+                                            <td>{{ $d->user->name }}</td>
                                             <td>{{ $j->post_type }}</td>
 
                                             <td>

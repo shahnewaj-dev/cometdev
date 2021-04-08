@@ -8,6 +8,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//frontend
+Route::get('blog',[App\Http\Controllers\PostShowController::class,'postShow'])->name('post.show');
+
 //Auth::routes();
 //
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -49,4 +52,5 @@ Route::post('post/store', [App\Http\Controllers\PostController::class, 'store'])
 Route::get('post/trash', [App\Http\Controllers\PostController::class, 'postTrash'])->name('post.trash');
 Route::get('post/trash/update/{id}', [App\Http\Controllers\PostController::class, 'postTrashUpdate'])->name('post.trash.update');
 Route::get('post/trash/delete/{id}', [App\Http\Controllers\PostController::class, 'postTrashDelete'])->name('post.trash.delete');
+
 

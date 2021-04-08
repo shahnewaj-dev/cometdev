@@ -34,8 +34,8 @@
                         @include('validate')
                         <a  class="btn btn-sm btn-primary" href="{{ route('admin.create') }}">Add new post</a>
                         <br><br>
-                        <a class="badge badge-info" href="{{ route('admin.post') }}">Published{{ $published }}</a>
-                        <a class="badge badge-danger" href="{{ route('post.trash') }}">Trash{{ $trash }}</a>
+                        <a class="badge badge-info" href="{{ route('admin.post') }}">Published{{ ($published==0) ? '' : $published }}</a>
+                        <a class="badge badge-danger" href="{{ route('post.trash') }}">Trash{{ ($trash==0) ? '' : $trash }}</a>
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Post Rows</h4>
